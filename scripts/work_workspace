@@ -1,0 +1,26 @@
+#!/bin/sh
+#i3-msg workspace 2:  &&
+#sleep 0.3 &&
+#exec /usr/bin/caja &
+sleep 0.5 
+i3-msg workspace 3: 
+sleep 0.3
+exec /usr/bin/chromium &
+sleep 1 
+exec /usr/bin/mendeleydesktop &
+sleep 0.5  
+i3-msg workspace prev
+exec /usr/bin/originlab &
+sleep 0.5 
+i3-msg workspace prev
+exec /usr/bin/thunderbird &
+sleep 0.5 
+i3-msg workspace prev
+exec /usr/bin/chemdraw &
+sleep 0.5  
+i3-msg workspace prev
+exec /usr/bin/powerpoint &
+sleep 3 
+i3-msg workspace prev
+#i3-msg workspace number 3 &
+

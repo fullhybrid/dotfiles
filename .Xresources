@@ -1,6 +1,8 @@
 !URxvt.font: 9x15:size=10
-URxvt.font: xft:droid sans:size=11
-URxvt.letterSpace: -10
+!URxvt.font: xft:droid sans:size=11
+!URxvt.font: xft:Cantarell:size=10
+URxvt.font: xft:DejaVuSansMono:size=10
+!URxvt.letterSpace: -10
 Xft.dpi: 170 
 Xft.antialias: true
 Xft.hinting: true

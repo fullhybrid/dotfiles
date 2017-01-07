@@ -79,6 +79,9 @@ source $ZSH/oh-my-zsh.sh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
+##########################################
+######      	 ALIAS		##########
+########################################## 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
@@ -92,3 +95,16 @@ alias yain="yaourt -S"
 alias yass="yaourt -Ss"
 alias x="exit"
 alias fstab="sudo vim /etc/fstab"
+alias Xchange="mount /mnt/Xchange"
+alias toshiba="mount /mnt/toshiba"
+alias pacss="pacman -Ss"
+alias dotfiles="cd /home/mjk/dotfiles"
+#alias ls="ls -l"
+
+
+#########################################
+########	TOOLS 		########
+########################################
+cconv() {
+  wget -qO- "http://www.google.com/finance/converter?a=$1&from=$2&to=$3" |  sed '/res/!d;s/<[^>]*>//g';
+}
