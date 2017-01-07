@@ -1,0 +1,2 @@
+Xchange -fstype=cifs,credentials=/home/mjk/.credentials/.xchangecredentials ://nas.ads.mwn.de/tuch/tc3/Xchange
+

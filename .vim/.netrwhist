@@ -1,5 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_cnt =8
 let g:netrw_dirhist_1='/home/mjk/.config/touchegg'
 let g:netrw_dirhist_2='/etc/autofs/auto.master.d'
 let g:netrw_dirhist_3='/home/mjk/Documents/scripts/i3lockfancy'
@@ -7,3 +7,4 @@ let g:netrw_dirhist_4='/home/mjk/Dropbox/Marc Julian Kloberg/Private/Dotfiles/x2
 let g:netrw_dirhist_5='/home/mjk/Documents/scripts/displays/extended.sh'
 let g:netrw_dirhist_6='/home/mjk/dotfiles'
 let g:netrw_dirhist_7='/etc'
+let g:netrw_dirhist_8='/etc/autofs/auto.master.d'
