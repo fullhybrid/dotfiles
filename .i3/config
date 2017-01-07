@@ -8,6 +8,7 @@
 
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
+set $mod2 Mode_switch
 
 
 #############################
@@ -30,29 +31,42 @@ new_float normal
 hide_edge_borders none
 
 # change borders
-bindsym $mod+u border none
-bindsym $mod+y border pixel 2
-bindsym $mod+n border normal
+#bindsym $mod+u border none
+#bindsym $mod+y border pixel 2
+#bindsym $mod+n border normal
 
 popup_during_fullscreen smart
 workspace_auto_back_and_forth yes
 
 
 #renaming workspaces
-bindsym $mod+q exec i3-input -F 'rename workspace to "%s"' -P 'New name: ' 
+bindsym $mod+Shift+n exec i3-input -F 'rename workspace to "%s"' -P 'New name: ' 
 
 #move workspace to "output left"
 bindsym $mod+m move workspace to output left
+
+bindsym $mod+n mode "$modeborder"
+set $modeborder (T)itles (N)one (D)efault
+mode "$modeborder" {
+bindsym t border normal, mode "default"
+bindsym n border none, mode "default"
+bindsym d border pixel 2, mode "default"
+
+
+bindsym Return mode "default"
+bindsym Escape mode "default"
+}
+
 
 #############################
 ###   APP LAUNCHER         ##
 #############################
 
 # DMENU 
-bindsym $mod+d exec --no-startup-id dmenu_recency
+bindsym Mode_switch+d exec --no-startup-id dmenu_recency
 
 # ROFI
-#bindsym $mod+ctrl+space exec rofi -show run -lines 3 -eh 2 -opacity "90" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -h lbg "$bg-color" -hlfg "#9575cd" 
+#bindsym Mode_switch+space exec rofi -show run -lines 10 -opacity 75 -eh 2 -width 100 -padding 800 -color-enabled -bg $mjblack -fg $mjgreen -font "Cantarell 20"
 
 #bindsym $mod+space exec rofi -show run -lines 3 -eh 2 -width 40 -color-enabled -padding 100 -opacity 85 -location 3 -bg "$bgcolor" -fg "$textcolor"
 
@@ -75,7 +89,6 @@ font pango:Cantarell 10
 bindsym $mod+Return exec terminator
 bindsym $mod+Shift+Return exec terminal
 
-
 #############################
 ###       SHORTCUTS       ###
 #############################
@@ -84,12 +97,7 @@ bindsym $mod+Shift+Return exec terminal
 # Bmenu
 bindsym $mod+Ctrl+b exec terminator -e 'bmenu'
 
-# Browsers
-#bindsym $mod+F2 exec palemoon
-bindsym $mod+F5 exec chromium
 
-# File Browsers
-bindsym $mod+F4 exec pcmanfm
 # bindsym $mod+F3 exec ranger
 bindsym $mod+Shift+F4 exec gksu pcmanfm
 
@@ -104,8 +112,27 @@ bindsym $mod+Ctrl+t exec --no-startup-id compton -b
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
 
 # Screenshots
-bindsym Print exec "scrot -e 'mv $f ~/Screenshots'; sleep 1; exec notify-send 'screenshot has been saved to ~/Screenshots'"
-bindsym $mod+Print --release exec "scrot -ue 'mv $f ~/Screenshots'; sleep 1; exec notify-send 'screenshot has been saved to ~/Screenshots'"
+bindsym Print mode "$modescreenshot"
+set $modescreenshot (F)ullscreen, (W)indow, (S)election
+mode "$modescreenshot" {
+bindsym f  exec "scrot -e 'mv $f ~/Screenshots'; sleep 1; exec notify-send 'Full screenshot has been saved to ~/Screenshots'", mode "default" 
+bindsym w exec "scrot -ue 'mv $f ~/Screenshots'; sleep 1; exec notify-send 'Window screenshot saved to ~/Screenshots'", mode "default"
+bindsym s --release exec "notify-send 'selection will be saved to ~/Screenshots'; scrot -se 'mv $f ~/Screenshots'", mode "default"
+
+bindsym Return mode "default"
+bindsym Escape mode "default"
+} 
+
+
+
+
+
+
+# Fullscreen
+bindsym $mod+Print exec "scrot -e 'mv $f ~/Screenshots'; sleep 1; exec notify-send 'screenshot has been saved to ~/Screenshots'"
+# Window
+bindsym Ctrl+Print --release exec "scrot -ue 'mv $f ~/Screenshots'; sleep 1; exec notify-send 'screenshot has been saved to ~/Screenshots'"
+# selection
 bindsym $mod+Shift+Print --release exec "notify-send 'selection will be saved to ~/Screenshots'; scrot -se 'mv $f ~/Screenshots'"
 
 # Help 
@@ -123,17 +150,18 @@ bindsym $mod+Ctrl+x exec xkill
 #############################
 
 # Wallpaper
-exec --no-startup-id /home/mjk/Documents/scripts/wallpaper.sh
+exec --no-startup-id /home/mjk/scripts/wallpaper.sh
 
 
 
 
 # Autostart applications
+exec --no-startup-id redshift-gtk
 exec --no-startup-id guake
 exec --no-startup-id menutray -i
 exec --no-startup-id dropbox start
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id nitrogen --restore
+#exec --no-startup-id nitrogen --restore
 exec --no-startup-id nm-applet
 exec --no-startup-id xmodmap .Xmodmap
 exec --no-startup-id xfce4-power-manager
@@ -152,22 +180,15 @@ exec xrandr --dpi 180
 exec --no-startup-id touchegg
 
 
-#############################
-###    THEME AND COLOURS  ###
-#############################
-
-# Theme colors
-client.focused #2ECC71 #2ECC71 #000000 #FFFFFF
-client.unfocused #222222 #222222 #2ECC71 #222222
-client.urgent #274D01 #900000 #FFFFFF #900000
 
 #############################
-###    Scratchpad         ###
+###    SCRATCHPAD	  ###
 #############################
 
 bindsym $mod+p [instance="^scratchpad$"] scratchpad show
-exec_always flock -w1 ~/.i3/scratchpad/lockfile ~/.i3/scratchpad/perpetual_terminal.sh
+exec_always flock -w1 /home/mjk/.i3/scratchpad/lockfile /home/mjk/.i3/scratchpad/perpetual_terminal.sh
 for_window [instance="^scratchpad$"] move scratchpad
+bindsym $mod2+p  flock -w1 /home/mjk/.i3/scratchpad/lockfile /home/mjk/.i3/scratchpad/perpetual_terminal.sh
 
 
 
@@ -183,11 +204,17 @@ exec --no-startup-id terminator -e "htop" -T "htop"
 bindsym $mod+F12 [title="htop"] scratchpad show
 
 # GOOGLE MUSIC
-bindsym $mod+F2 [title="Google Play Music"] scratchpad show 
-for_window [title="Google Play Music"] move scratchpad
-#exec --no-startup-id chromium "--app=https://play.google.com/music/listen#/now"
-#bindsym $mod+Shift+F2 exec chromium "--app=https://play.google.com/music/listen#/now"
-bindsym $mod+Shift+F2 exec chromium --start-fullscreen --new-window https://play.google.com/music/listen#/now 
+#bindsym $mod+F2 [title="Google Play Music"] scratchpad show 
+#for_window [title="Google Play Music"] move scratchpad
+##exec --no-startup-id chromium "--app=https://play.google.com/music/listen#/now"
+##bindsym $mod+Shift+F2 exec chromium "--app=https://play.google.com/music/listen#/now"
+#bindsym $mod+Shift+F2 exec chromium --start-fullscreen --new-window https://play.google.com/music/listen#/now 
+
+# MUSIC: Google MUsic and Soundcloud with palemoon
+bindsym $mod+F2 [class="Pale moon"] scratchpad show
+for_window [class="Pale moon"] move scratchpad
+bindsym $mod+Shift+F2 exec palemoon -new-tab -url https://play.google.com/music/listen#/now -new-tab -url https://soundcloud.com
+
 
 
 #Gtasks Scratchpad
@@ -195,6 +222,7 @@ bindsym $mod+Shift+F2 exec chromium --start-fullscreen --new-window https://play
 #for_window [title="GTaskfloat"] move scratchpad 
 #bindsym $mod+Shift+F1 exec uzbl-browser --named=GTaskfloat --uri=https://mail.google.com/tasks/canvas?pli=1
 #exec --no-startup-id uzbl-browser --named=GTaskfloat --uri=https://mail.google.com/tasks/canvas?pli=1
+
 bindsym $mod+F1 [title="Tasks"] scratchpad show
 for_window [title="Tasks"] move scratchpad 
 exec --no-startup-id chromium "--app=https://mail.google.com/tasks/canvas?pli=1"
@@ -206,6 +234,20 @@ for_window [title="Rangerfloat"] move scratchpad
 bindsym $mod+Shift+F3 exec terminator -e ranger --title=Rangerfloat
 exec --no-startup-id terminator --title=Rangerfloat -e ranger
 
+#Word Scratchpad
+bindsym Mode_switch+w [title="Word"] scratchpad show
+
+#Caja Scratchpad
+#bindsym Mode_switch+f [class="Caja"] scratchpad show
+bindsym $mod+F4 [class="Caja"] scratchpad show
+
+#Google docs scratchpad
+bindsym Mode_switch+g [title="Google Docs"] scratchpad show
+
+#Pavucontrol Scratchpad
+exec --no-startup-id pavucontrol
+for_window [class="Pavucontrol"] move scratchpad
+bindsym $mod+F5 [class="Pavucontrol"] scratchpad show  
 
 #############################
 ###    SHUTDOWN DIALOGUE  ###
@@ -229,7 +271,7 @@ mode "$mode_system" {
 }
 
 # Lock screen
-bindsym $mod+ctrl+l exec --no-startup-id blurlock
+bindsym $mod+ctrl+l exec --no-startup-id /usr/bin/lock
 
 
 #############################
@@ -237,10 +279,10 @@ bindsym $mod+ctrl+l exec --no-startup-id blurlock
 #############################
 
 # Disable window titlebars entirely
-for_window [class="^.*"] border pixel 2
+for_window [class="^.*"] border pixel 1
 
 # Set inner/outer gaps
-gaps inner 10
+gaps inner 20
 gaps outer 0
 
 # Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
@@ -292,6 +334,34 @@ mode "$mode_gaps_outer" {
         bindsym Escape mode "default"
 }
 
+
+#############################
+###    THEME AND COLOURS  ###
+#############################
+
+# Theme colors
+#			Border 		Backgr.		Text		Indicator	Child_border
+client.focused		$mjgreen	$mjgreen	$mjdarkblack	$mjwhite
+client.unfocused	$mjblack	$mjblack	$mjgreen	$mjblack
+client.urgent		#274D01		$mjred		$mjwhite	$mjred
+
+set $mjgreen #2ECC71
+set $mjblack #222222
+set $mjdarkgreen #274D01
+set $mjred #900000
+set $mjdarkblack #000000
+set $mjwhite #FFFFFF
+
+set $mjbrown #A4A28D
+set $mjgrey #DDDDDD
+
+
+# ROFI
+bindsym $mod+d exec "rofi -show run -lines 10 -opacity 75 -eh 2 -width 100 -padding 800 -color-normal '#222222,#2ECC71,#222222,#2ECC71,#222222' -color-window '#222222,#222222' -font 'Cantarell 22' -sidebar-mode"
+
+bindsym Mode_switch+space exec "rofi -show window -lines 20 -width 50 -padding 3 -location 0 -eh 1 -opacity 95 -font 'Cantarell 18' -separator-style solid -hide-scrollbar"
+
+
 ################################################################################################
 ## 					DEFAULTS     					      ##
 ################################################################################################
@@ -301,11 +371,11 @@ mode "$mode_gaps_outer" {
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
 ################################################################################################
 
-exec --no-startup-id volumeicon
-bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
-#exec --no-startup-id pulseaudio
-#exec --no-startup-id pa-applet
-#bindsym $mod+Ctrl+m exec pavucontrol
+#exec --no-startup-id volumeicon
+#bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
+exec --no-startup-id pulseaudio
+exec --no-startup-id pa-applet
+bindsym $mod+Ctrl+m exec pavucontrol
 
 ################################################################################################
 
@@ -320,18 +390,19 @@ bar {
 #	wheel_down_cmd nop
 	font pango:Cantarell,Icons 9
 	colors {
-		separator #2ECC71
-		background #000000
+		separator	$mjgreen
+		background 	$mjdarkblack
 		statusline #DDDDDD
-		focused_workspace #FFFFFF #2ECC71 #000000
-		active_workspace #000000 #A4A28D #FFFFFF
-		inactive_workspace #A4A28D #000000 #DDDDDD
-		urgent_workspace #2ECC71 #900000 #FFFFFF
+#class					border		backgr.		text
+		focused_workspace	$mjgreen	$mjgreen	$mjdarkblack
+		active_workspace	$mjdarkblack	$mjbrown	$mjwhite
+		inactive_workspace	$mjdarkblack	$mjdarkblack	$mjgrey
+		urgent_workspace	$mjgreen	$mjred		$mjwhite
 	}
 }
 
-
-
+# Old inactive workspace border color: $mjbrown
+# Old focused workspace border color: $mjwhite
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -369,7 +440,7 @@ bindsym $mod+Shift+Right move right
 
 #workspace back and forth (with/without active container)
 #workspace_auto_back_and_forth yes
-#bindsym $mod+b workspace back_and_forth
+bindsym $mod+grave workspace back_and_forth
 #bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 
 # split in horizontal orientation
@@ -404,39 +475,79 @@ bindsym $mod+a focus parent
 #############################
 
 # Workspace names
-# set $ws1 1:
-# set $ws2 2:
-# set $ws3 3:
-# set $ws3 4:
+set $ws1 1:  
+set $ws2 2: 
+set $ws3 3: 
+set $wsmend 4:  
+set $wschemdraw 7:  
+set $wsplot 5:  
+set $wsdeluge 10: 
+set $wssteam 9:  
+set $wsoffice 6:  
+
+
+set $ws11  
+set $ws13 
+
+#Assignments
+assign [title="Mendeley Desktop"] $wsmend
+assign [title="ChemDraw Ultra"] $wschemdraw
+assign [title="SciDAVis*"] $wsplot
+#assign [title="deluge"] $wsdeluge
+assign [class="monitor"] $wsdeluge
+assign [class="Steam"] $wssteam
+#assign [title="Thunderbird"] $ws1
+assign [title="OriginPro"] $wsplot
+assign [title="PowerPoint"] $wsoffice
+assign [title="Word"] $wsoffice
 
 # switch to workspace
-bindsym $mod+1 workspace number 1
-bindsym $mod+2 workspace number 2
-bindsym $mod+3 workspace number 3
-bindsym $mod+4 workspace number 4
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number 4 
 bindsym $mod+5 workspace number 5
 bindsym $mod+6 workspace number 6
 bindsym $mod+7 workspace number 7
 bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
-bindsym $mod+0 workspace number 10 
+bindsym $mod+0 workspace number 10
+bindsym $mod2+1 workspace $ws11 
+bindsym $mod2+2 workspace number 12 
+bindsym $mod2+3 workspace $ws13 
+bindsym $mod2+4 workspace number 14 
+bindsym $mod2+5 workspace number 15 
+bindsym $mod2+6 workspace number 16 
+bindsym $mod2+7 workspace number 17 
+bindsym $mod2+8 workspace number 18 
+bindsym $mod2+9 workspace number 19 
+
 
 #navigate workspaces next / previous
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
+bindsym $mod+q workspace prev
 
 # Move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace number 1
-bindsym $mod+Shift+2 move container to workspace number 2
-bindsym $mod+Shift+3 move container to workspace number 3
-bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+1 move container to workspace number $ws1 
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
 bindsym $mod+Shift+5 move container to workspace number 5
 bindsym $mod+Shift+6 move container to workspace number 6
 bindsym $mod+Shift+7 move container to workspace number 7
 bindsym $mod+Shift+8 move container to workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9
-bindsym $mod+Shift+10 move container to workspace number 10 
-
+bindsym $mod+Shift+0 move container to workspace number 10 
+bindsym $mod2+Shift+1 move container to workspace $ws11 
+bindsym $mod2+Shift+2 move container to workspace number 12 
+bindsym $mod2+Shift+3 move container to workspace $ws13 
+bindsym $mod2+Shift+4 move container to workspace number 14 
+bindsym $mod2+Shift+5 move container to workspace number 15 
+bindsym $mod2+Shift+6 move container to workspace number 16 
+bindsym $mod2+Shift+7 move container to workspace number 17 
+bindsym $mod2+Shift+8 move container to workspace number 18 
+bindsym $mod2+Shift+9 move container to workspace number 19 
 
 # Move to workspace with focused container
 #bindsym $mod+Shift+1 move container to workspace number 1; workspace 1
@@ -448,19 +559,12 @@ bindsym $mod+Shift+10 move container to workspace number 10
 #bindsym $mod+Shift+7 move container to workspace number 7; workspace 7
 #bindsym $mod+Shift+8 move container to workspace number 8; workspace 8
 
-# Open applications on specific workspaces
-# assign [class="Thunderbird"] 1
-# assign [class="Pale moon"] 2
-# assign [class="Pcmanfm"] 3
-# assign [class="Skype"] 5
 
-# Open specific applications in floating mode
-for_window [title="alsamixer"] floating enable border pixel 2
-for_window [class="Calamares"] floating enable border normal
-for_window [class="Clipgrab"] floating enable
-for_window [title="File Transfer*"] floating enable
-for_window [class="Galculator"] floating enable border pixel 2
-for_window [class="GParted"] floating enable border normal
+
+#################################
+####### FLOATING ################
+#################################
+#
 for_window [title="i3_help"] floating enable sticky enable border normal
 for_window [class="Lightdm-gtk-greeter-settings"] floating enable
 for_window [class="Lxappearance"] floating enable sticky enable border normal
@@ -480,6 +584,12 @@ for_window [class="Skype"] floating enable border normal
 for_window [class="Thus"] floating enable border normal
 for_window [class="Timeset-gui"] floating enable border normal
 for_window [class="(?i)virtualbox"] floating enable border normal
+for_window [class="blueman-manager"] floating enable border normal
+for_window [title="Bluetooth Devices"] floating enable border pixel 2 
+for_window [class="gnome-calendar"] floating enable 
+for_window [class="gpicview"] border normal 
+for_window [class="Gpicview"] border normal
+
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus

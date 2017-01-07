@@ -1,6 +1,6 @@
 #!/bin/sh
 
-run_inside="'ZDOTDIR=${HOME}/.i3/scratchpad zsh'"
+run_inside="'ZDOTDIR=/home/mjk/.i3/scratchpad zsh'"
 
 while true; do
 	# not using urxvtc here, as we're relying on the process to run
