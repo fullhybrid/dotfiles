@@ -190,7 +190,10 @@ exec_always flock -w1 /home/mjk/.i3/scratchpad/lockfile /home/mjk/.i3/scratchpad
 for_window [instance="^scratchpad$"] move scratchpad
 bindsym $mod2+p  flock -w1 /home/mjk/.i3/scratchpad/lockfile /home/mjk/.i3/scratchpad/perpetual_terminal.sh
 
-
+# FOR AIRVPN
+for_window [title="AirVPN"] move scratchpad
+exec --no-startup-id airvpn
+bindsym $mod+F11 [title="AirVPN"] scratchpad show
 
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+minus move scratchpad
@@ -249,6 +252,11 @@ exec --no-startup-id pavucontrol
 for_window [class="Pavucontrol"] move scratchpad
 bindsym $mod+F5 [class="Pavucontrol"] scratchpad show  
 
+#Bluetooth Scratchpad
+exec --no-startup-id blueman-manager
+for_window [class="Blueman-manager"] move scratchpad
+bindsym $mod+F6 [class="Blueman-manager"] scratchpad show
+
 #############################
 ###    SHUTDOWN DIALOGUE  ###
 #############################
@@ -291,7 +299,7 @@ gaps outer 0
 # gaps outer all plus 5
 
 # Smart gaps (gaps used if only more than one container on the workspace)
-smart_gaps on
+# smart_gaps on
 
 # Smart borders (draw borders around container only if it is not the only container on this workspace) 
 # on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
@@ -351,6 +359,7 @@ set $mjdarkgreen #274D01
 set $mjred #900000
 set $mjdarkblack #000000
 set $mjwhite #FFFFFF
+set $transparentblack #00000060
 
 set $mjbrown #A4A28D
 set $mjgrey #DDDDDD
@@ -385,18 +394,19 @@ bindsym $mod+Ctrl+m exec pavucontrol
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
+	i3bar_command i3bar -t
 	status_command i3status
 #	wheel_up_cmd nop
 #	wheel_down_cmd nop
 	font pango:Cantarell,Icons 9
 	colors {
 		separator	$mjgreen
-		background 	$mjdarkblack
+		background 	$transparentblack	
 		statusline #DDDDDD
 #class					border		backgr.		text
 		focused_workspace	$mjgreen	$mjgreen	$mjdarkblack
 		active_workspace	$mjdarkblack	$mjbrown	$mjwhite
-		inactive_workspace	$mjdarkblack	$mjdarkblack	$mjgrey
+		inactive_workspace	$transparentblack $transparentblack	$mjgrey
 		urgent_workspace	$mjgreen	$mjred		$mjwhite
 	}
 }
@@ -484,6 +494,7 @@ set $wsplot 5: 
 set $wsdeluge 10: 
 set $wssteam 9:  
 set $wsoffice 6:  
+set $ws4 4:
 
 
 set $ws11  
@@ -505,7 +516,7 @@ assign [title="Word"] $wsoffice
 bindsym $mod+1 workspace number $ws1
 bindsym $mod+2 workspace number $ws2
 bindsym $mod+3 workspace number $ws3
-bindsym $mod+4 workspace number 4 
+bindsym $mod+4 workspace number $ws4
 bindsym $mod+5 workspace number 5
 bindsym $mod+6 workspace number 6
 bindsym $mod+7 workspace number 7
@@ -589,6 +600,8 @@ for_window [title="Bluetooth Devices"] floating enable border pixel 2
 for_window [class="gnome-calendar"] floating enable 
 for_window [class="gpicview"] border normal 
 for_window [class="Gpicview"] border normal
+for_window [class="Msgcompose"] floating enable
+for_window [title="Write:"] floating enable
 
 
 # switch to workspace with urgent window automatically
