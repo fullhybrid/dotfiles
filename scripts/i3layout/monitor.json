@@ -1,0 +1,77 @@
+// vim:ts=4:sw=4:et
+{
+    "border": "pixel",
+    "current_border_width": 2,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 694,
+       "width": 1134,
+       "x": 0,
+       "y": 0
+    },
+    "name": "htop",
+    "percent": 0.65,
+    "swallows": [
+       {
+       "class": "^Terminator$",
+       "instance": "^terminator$",
+       "title": "^htop$",
+       "transient_for": "^$"
+       }
+    ],
+    "type": "con"
+}
+
+{
+    // tabbed split container with 2 children
+    "border": "pixel",
+    "floating": "auto_off",
+    "layout": "tabbed",
+    "percent": 0.35,
+    "type": "con",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 4,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 1342,
+               "width": 1592,
+               "x": 1241,
+               "y": 307
+            },
+            "name": "AirVPN",
+            "percent": 0.5,
+            "swallows": [
+               {
+               "title": "^Eddie*$",
+               "transient_for": "^$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "pixel",
+            "current_border_width": 2,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 500,
+               "width": 800,
+               "x": 0,
+               "y": 0
+            },
+            "name": "Power Statistics",
+            "percent": 0.5,
+            "swallows": [
+               {
+               "class": "^Gnome\\-power\\-statistics$",
+               "instance": "^gnome\\-power\\-statistics$",
+               "title": "^Power\\ Statistics$",
+               "transient_for": "^$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+

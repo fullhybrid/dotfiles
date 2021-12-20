@@ -1,3 +1,7 @@
+clear control
+add control = Control_L Control_R
+remove control = Hyper_L
+
 keycode   8 =
 keycode   9 = Escape NoSymbol Escape
 keycode  10 = 1 exclam 1 exclam
@@ -27,7 +31,7 @@ keycode  33 = p P End End
 keycode  34 = bracketleft braceleft udiaeresis Udiaeresis
 keycode  35 = bracketright braceright bracketright braceright
 keycode  36 = Return NoSymbol Return
-keycode  37 = Control_L NoSymbol Control_L
+keycode  37 = Control_L Control_L Control_L Control_L
 keycode  38 = a A Caps_Lock Caps_Lock
 keycode  39 = s S ssharp S
 keycode  40 = d D d D

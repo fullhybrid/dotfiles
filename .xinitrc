@@ -4,7 +4,7 @@
 #
 # Executed by startx (run your window manager from here)
 
-xrandr --dpi 180
+#xrandr --dpi 192
 exec i3
 
 xrdb -merge ~/.Xresources

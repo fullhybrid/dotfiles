@@ -1,3 +1,0 @@
-#!/bin/sh
-env WINEPREFIX=/home/mjk/.prefixoffice2010 wine /home/mjk/.prefixoffice2010/drive_c/Program\ Files/Microsoft\ Office/Office14/MSPUB.EXE
-

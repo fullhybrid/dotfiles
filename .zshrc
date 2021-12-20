@@ -85,7 +85,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias i3con="vim ~/.i3/config"
+alias i3con="vim ~/.config/i3/config"
 alias i3statuscon="sudo vim /etc/i3status.conf"
 alias zshcon="vim ~/.zshrc"
 alias xrescon="vim ~/.Xresources"
@@ -99,6 +99,7 @@ alias Xchange="mount /mnt/Xchange"
 alias toshiba="mount /mnt/toshiba"
 alias pacss="pacman -Ss"
 alias dotfiles="cd /home/mjk/dotfiles"
+alias polycon="vim /home/mjk/.config/polybar/config"
 #alias ls="ls -l"
 
 

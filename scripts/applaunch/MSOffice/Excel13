@@ -1,0 +1,3 @@
+#!/bin/sh
+WINEARCH=win32 WINEPREFIX=/home/mjk/.wineprefixes/office2013 wine /home/mjk/.wineprefixes/office2013/drive_c/Program\ Files/Microsoft\ Office/Office15/EXCEL.EXE
+

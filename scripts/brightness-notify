@@ -1,0 +1,6 @@
+#!/bin/bash
+
+value=$(xbacklight -get)
+
+volnoti-show -s /usr/share/pixmaps/volnoti/display-brightness-symbolic.svg $value
+

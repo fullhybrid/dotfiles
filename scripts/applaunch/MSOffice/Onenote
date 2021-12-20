@@ -1,0 +1,2 @@
+#!/bin/sh
+env WINEPREFIX=/home/mjk/.wineprefixes/officechem wine /home/mjk/.wineprefixes/officechem/drive_c/Program\ Files/Microsoft\ Office/Office14/ONENOTE.EXE

@@ -1,2 +1,3 @@
-toshiba -fstype=cifs,rw,uid=mjk,credentials=/home/mjk/.credentials/.zyxelcredentials ://192.168.1.130/TOSHIBA-External-USB-3-0-01011
-backupsnas -fstype=cifs,rw,uid=mjk,credentials=/home/mjk/.credentials/.zyxelcredentials ://192.168.1.130/BackupsNAS 
+toshiba -fstype=cifs,vers=1.0,rw,uid=mjk,credentials=/home/mjk/.credentials/.zyxelcredentials ://192.168.178.60/TOSHIBA-External-USB-3-0-01011
+backupsnas -fstype=cifs,vers=1.0,rw,uid=mjk,credentials=/home/mjk/.credentials/.zyxelcredentials ://192.168.178.60/BackupsNAS 
+picturebackup -fstype=cifs,vers=1.0,rw,uid=mjk,credentials=/home/mjk/.credentials/.zyxelcredentials ://192.168.178.60/picturebackup

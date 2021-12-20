@@ -1,0 +1,8 @@
+#!/bin/bash
+
+
+firefox -P music --new-tab https://soundcloud.com &
+sleep 2 
+firefox -P music --new-tab https://play.google.com/music/listen\#/now 
+
+

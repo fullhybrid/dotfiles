@@ -3,7 +3,7 @@
 !URxvt.font: xft:Cantarell:size=10
 URxvt.font: xft:DejaVuSansMono:size=10
 !URxvt.letterSpace: -10
-Xft.dpi: 170 
+Xft.dpi: 155 
 Xft.antialias: true
 Xft.hinting: true
 Xft.rgba: rgb

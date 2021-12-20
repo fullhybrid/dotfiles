@@ -1,2 +1,2 @@
 #!/bin/sh
-env WINEPREFIX=/home/mjk/.prefixoffice2010 wine "/home/mjk/.prefixoffice2010/drive_c/ChemOffice2010/ChemDraw/ChemDraw.exe"
+env WINEPREFIX=/home/mjk/.wineprefixes/officechem wine "/home/mjk/.wineprefixes/officechem/drive_c/Program Files/CambridgeSoft/ChemOffice2010/ChemDraw/ChemDraw.exe" 

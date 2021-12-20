@@ -1,0 +1,2 @@
+#!/bin/sh
+env WINEPREFIX=/home/mjk/.wineprefixes/originlab wine "/home/mjk/.wineprefixes/originlab/drive_c/Program Files/OriginLab/Origin2016/Origin93.exe"
